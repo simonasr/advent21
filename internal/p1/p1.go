@@ -9,23 +9,44 @@ import (
 )
 
 var (
-	Report         []int
-	TimesIncreased int = 0
+	report []int
 )
 
 func Run() {
-	Report = readReport()
+	fmt.Printf("Part1: %v\n", P1Part1())
+	fmt.Printf("Part2: %v", P1Part2())
+}
 
-	for index, element := range Report {
+func P1Part1() int {
+	report = readReport()
+	var timesIncreased int = 0
+
+	for index, element := range report {
 		if index == 0 {
 			continue
 		}
 
-		if didDepthIncreased(Report[index-1], element) {
-			TimesIncreased++
+		if didDepthIncreased(report[index-1], element) {
+			timesIncreased++
 		}
 	}
-	fmt.Print(TimesIncreased)
+	return timesIncreased
+}
+
+func P1Part2() int {
+	var timesIncreased int = 0
+	report = readReport()
+	reportLenght := len(report)
+	for index := 0; index < reportLenght-3; index++ {
+		sum1 := report[index] + report[index+1] + report[index+2]
+		sum2 := report[index+1] + report[index+2] + report[index+3]
+
+		if didDepthIncreased(sum1, sum2) {
+			timesIncreased++
+		}
+	}
+
+	return timesIncreased
 }
 
 func readReport() []int {
