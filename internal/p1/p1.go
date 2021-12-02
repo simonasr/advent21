@@ -12,8 +12,8 @@ var (
 )
 
 func Run() {
-	fmt.Printf("Part1: %v\n", P1Part1())
-	fmt.Printf("Part2: %v", P1Part2())
+	fmt.Printf("1 Part1: %v\n", P1Part1())
+	fmt.Printf("1 Part2: %v\n", P1Part2())
 }
 
 func P1Part1() int {
