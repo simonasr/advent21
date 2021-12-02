@@ -1,11 +1,10 @@
 package p1
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
 	"strconv"
+
+	"github.com/simonasr/advent21/internal/input"
 )
 
 var (
@@ -18,7 +17,7 @@ func Run() {
 }
 
 func P1Part1() int {
-	report = readReport()
+	report = readReport("p1-1-report.txt")
 	var timesIncreased int = 0
 
 	for index, element := range report {
@@ -35,7 +34,7 @@ func P1Part1() int {
 
 func P1Part2() int {
 	var timesIncreased int = 0
-	report = readReport()
+	report = readReport("p1-1-report.txt")
 	reportLenght := len(report)
 	for index := 0; index < reportLenght-3; index++ {
 		sum1 := report[index] + report[index+1] + report[index+2]
@@ -49,21 +48,14 @@ func P1Part2() int {
 	return timesIncreased
 }
 
-func readReport() []int {
-	var lines []int
-	file, err := os.Open("p1-1-report.txt")
-	if err != nil {
-		log.Fatal(err)
+func readReport(report string) []int {
+	var result []int
+	in := input.ReadReport("p1-1-report.txt")
+	for _, line := range in {
+		line, _ := strconv.Atoi(line)
+		result = append(result, line)
 	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		depth := scanner.Text()
-		i, _ := strconv.Atoi(depth)
-		lines = append(lines, i)
-	}
-	return lines
+	return result
 }
 
 func didDepthIncreased(first, second int) bool {
